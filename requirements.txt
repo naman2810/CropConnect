@@ -1,0 +1,6 @@
+tensorflow
+numpy
+keras
+cv2
+PIL
+streamlit
