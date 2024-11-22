@@ -12,18 +12,68 @@ def load_model():
 
 model = load_model()
 
-# Class labels mapping based on your provided class_labels
+# Class labels mapping with details
 class_labels = {
-    0: 'Tomato___Bacterial_spot',
-    1: 'Tomato___Early_blight',
-    2: 'Tomato___Late_blight',
-    3: 'Tomato___Leaf_Mold',
-    4: 'Tomato___Septoria_leaf_spot',
-    5: 'Tomato___Spider_mites Two-spotted_spider_mite',
-    6: 'Tomato___Target_Spot',
-    7: 'Tomato___Tomato_Yellow_Leaf_Curl_Virus',
-    8: 'Tomato___Tomato_mosaic_virus',
-    9: 'Tomato___healthy'
+    0: {
+        "name": 'Tomato___Bacterial_spot',
+        "cause": "Caused by the bacteria *Xanthomonas campestris*.",
+        "symptoms": "Yellow or brown spots on leaves, stems, and fruit.",
+        "effects": "Reduces fruit quality and plant growth."
+    },
+    1: {
+        "name": 'Tomato___Early_blight',
+        "cause": "Caused by the fungus *Alternaria solani*.",
+        "symptoms": "Dark concentric rings on older leaves; yellowing and wilting.",
+        "effects": "Reduces photosynthesis and yield."
+    },
+    2: {
+        "name": 'Tomato___Late_blight',
+        "cause": "Caused by the water mold *Phytophthora infestans*.",
+        "symptoms": "Grayish, water-soaked spots on leaves; dark lesions on stems and fruit.",
+        "effects": "Rapid plant death and highly destructive in humid conditions."
+    },
+    3: {
+        "name": 'Tomato___Leaf_Mold',
+        "cause": "Caused by the fungus *Passalora fulva*.",
+        "symptoms": "Yellow spots on the upper side of leaves; velvety mold on the underside.",
+        "effects": "Reduces photosynthesis and causes defoliation."
+    },
+    4: {
+        "name": 'Tomato___Septoria_leaf_spot',
+        "cause": "Caused by the fungus *Septoria lycopersici*.",
+        "symptoms": "Small, circular spots with dark edges and light centers on leaves.",
+        "effects": "Premature leaf drop, reducing fruit yield."
+    },
+    5: {
+        "name": 'Tomato___Spider_mites Two-spotted_spider_mite',
+        "cause": "Infestation by *Tetranychus urticae*.",
+        "symptoms": "Yellow stippling on leaves; webbing on the plant.",
+        "effects": "Weakened plants and reduced productivity."
+    },
+    6: {
+        "name": 'Tomato___Target_Spot',
+        "cause": "Caused by the fungus *Corynespora cassiicola*.",
+        "symptoms": "Brown lesions with concentric rings on leaves, stems, and fruit.",
+        "effects": "Leaf drop and poor fruit development."
+    },
+    7: {
+        "name": 'Tomato___Tomato_Yellow_Leaf_Curl_Virus',
+        "cause": "Caused by a virus spread by whiteflies.",
+        "symptoms": "Yellowing and curling of leaves; stunted plant growth.",
+        "effects": "Severe yield loss and unmarketable fruit."
+    },
+    8: {
+        "name": 'Tomato___Tomato_mosaic_virus',
+        "cause": "Caused by a viral infection.",
+        "symptoms": "Mottled patterns of light and dark green on leaves; deformed growth.",
+        "effects": "Decreased fruit yield and plant vigor."
+    },
+    9: {
+        "name": 'Tomato___healthy',
+        "cause": "No disease detected.",
+        "symptoms": "Healthy leaf with no visible spots or discoloration.",
+        "effects": "Optimal growth and yield."
+    }
 }
 
 # Helper function to prepare an image for prediction
@@ -42,7 +92,7 @@ def predict_image(image_path):
 
 # Streamlit App
 st.title("Tomato Leaf Disease Detection")
-st.write("Upload a tomato leaf image to identify the disease.")
+st.write("Upload a tomato leaf image to identify the disease and learn more about its causes, symptoms, and effects.")
 
 # File uploader
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
@@ -59,4 +109,7 @@ if uploaded_file is not None:
 
     # Predict the class
     prediction = predict_image("temp.jpg")
-    st.write(f"**Prediction:** {prediction}")
+    st.write(f"**Prediction:** {prediction['name']}")
+    st.write(f"**Cause:** {prediction['cause']}")
+    st.write(f"**Symptoms:** {prediction['symptoms']}")
+    st.write(f"**Effects:** {prediction['effects']}")
